@@ -490,3 +490,15 @@ import sys
 # считывание списка из входного потока
 lst_in = list(map(str.strip, sys.stdin.readlines()))
 [print(*i, sep='') for i in zip(*zip(*lst_in))]
+
+# %% 9.5.3
+lst_in = ['1 2 3 4', '5 6 7 8', '9 8 7 6']
+lst = []
+[lst.append(list(map(int, i.split()))) for i in lst_in]
+[print(*i, sep=' ') for i in zip(*lst)]
+
+# %% 9.5.4
+s_input = 'Москва Уфа Тула Самара Омск Воронеж Владивосток Лондон Калининград Севастополь'
+
+lst = [i for i in s_input.split()]
+[print(*i) for i in zip(*[iter(lst)] * 3)]
