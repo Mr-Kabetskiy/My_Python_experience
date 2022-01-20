@@ -463,7 +463,7 @@ for i in lst_in:
     q = []
     for j in s:
         if j.isdigit():
-            j=int(j)
+            j = int(j)
         q.append(j)
     st.append(tuple(q))
 st = tuple(st)
@@ -471,3 +471,22 @@ print(st)
 
 # d = {'Имя': 1, 'Зачет': 2, 'Оценка': 3, 'Номер': 4}
 t_lst = tuple(zip())
+
+# %%
+try:
+    with open('dataset_3363_3.txt', encoding='utf-8') as file:
+        lst_in = list(map(str.strip, file.readlines()))
+except:
+    print('Error')
+print(lst_in)
+# %%
+st = ' '.join(i for i in lst_in).lower()
+q = {val: st.split().count(val) for val in set(st.split())}
+print(*sorted(q.items(), key=lambda x: x[-1], reverse=True)[0])
+
+# %% 9.5.2
+import sys
+
+# считывание списка из входного потока
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+[print(*i, sep='') for i in zip(*zip(*lst_in))]
