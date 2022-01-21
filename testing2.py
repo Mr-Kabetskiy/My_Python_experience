@@ -1,5 +1,10 @@
-# %% 9.5.4
-s_input = 'Москва Уфа Тула Самара Омск Воронеж Владивосток Лондон Калининград Севастополь'
+# %% 9.6.6
+lst_in = ['смартфон:120000', 'яблоко:2', 'сумка:560', 'брюки:2500', 'линейка:10', 'бумага:500']
 
-lst = [i for i in s_input.split()]
-[print(*i) for i in zip(*[iter(lst)] * 3)]
+
+def cheapers(d: dict):
+    return [d.get(i) for i in (sorted(d))[:3]]
+
+
+d = {int(i.split(':')[1]): i.split(':')[0] for i in lst_in}
+print(*cheapers(d))
