@@ -518,3 +518,35 @@ def cheapers(d: dict):
 
 d = {int(i.split(':')[1]): i.split(':')[0] for i in lst_in}
 print(*cheapers(d))
+
+# %% 5.6.4
+lst_in_c = [[1, 0, 0, 0, 0], [0, 0, 1, 0, 1], [0, 0, 0, 0, 0], [0, 1, 0, 1, 0], [0, 0, 0, 0, 0]]
+p = 0
+for i in range(len(lst_in_c) - 1):
+    for j in range(len(lst_in_c) - 1):
+        if sum([lst_in_c[i][j], lst_in_c[i][j + 1], lst_in_c[i + 1][j], lst_in_c[i + 1][j + 1]]) <= 1:
+            p += 1
+        else:
+            p += 0
+print(["НЕТ", "ДА"][p == (len(lst_in_c) - 1) ** 2])
+
+# %% 5.6.5
+lst_in = [[2, 3, 4, 5, 6], [3, 2, 7, 8, 9], [4, 7, 2, 0, 4], [5, 8, 0, 2, 1], [6, 9, 4, 1, 2]]
+c = 0
+for i in range(len(lst_in)):
+    for j in range(i + 1, len(lst_in)):
+        if lst_in[i][j] == lst_in[j][i]:
+            c += 1
+        else:
+            c += 0
+print(["НЕТ", "ДА"][c == 10])
+
+# %% 5.6.6
+s = '8 11 -53 2 10 11'
+lst = list(map(int, s.split()))
+for i, val in enumerate(lst):
+    for j in range(i + 1, len(lst)):
+        if lst[j] < lst[i]:
+            lst[j], lst[i] = lst[i], lst[j]
+
+print(*lst)
