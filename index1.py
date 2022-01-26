@@ -550,3 +550,14 @@ for i, val in enumerate(lst):
             lst[j], lst[i] = lst[i], lst[j]
 
 print(*lst)
+
+# %% 5.6.7
+s = '4 5 2 0 6 3 -56 3 -1'
+lst = list(map(int, s.split()))
+
+for i in range(len(lst) - 1):
+    for j in (range(len(lst) - 1)):
+        if lst[j] > lst[j + 1]:
+            lst[j], lst[j + 1] = lst[j + 1], lst[j]
+
+print(*lst)
