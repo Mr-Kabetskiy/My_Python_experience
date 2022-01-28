@@ -1,11 +1,18 @@
 # %% 5.6.8
-s = '1 2 4 8 16 32 64'
-n = 221
-lst = list(map(int, s.split()))
-p = []
-for i in sorted(lst, reverse=True):
-    while n >= i:
-        p.append(i)
-        n -= i
+lst = [['#', 'x', 'o'], ['x', '#', 'x'], ['o', 'o', '#']]
+s1 = []
 
-print(*p)
+
+def get_even_sum(obj):
+    return sum(list(filter((lambda x: type(x) == int and x % 2 == 0), obj)))
+
+
+def is_string(lst):
+    return all(list(map(lambda x: isinstance(x, str), lst)))
+
+
+s = []
+for row in lst:
+    s.append(any(list(map(lambda x: x == '#', row))))
+
+print(any(s))
