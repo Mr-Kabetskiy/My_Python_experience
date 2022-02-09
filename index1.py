@@ -132,29 +132,34 @@ def is_triangle(x, y, z):
 a, b, c = tuple(map(int, input().split()))
 print(is_triangle(a, b, c))
 
-
 # %% 7.4.4
-# t = {'ё': 'yo', 'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ж': 'zh',
-#      'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p',
-#      'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh',
-#      'щ': 'shch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'}
+t = {'ё': 'yo', 'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ж': 'zh',
+     'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p',
+     'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh',
+     'щ': 'shch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'}
+
+
 #
 #
-# def translater(s, sep='-'):
-#     s = s.lower()
-#     trs = (''.join([t[i] if i in t else i for i in s])).replace(' ', sep)
-#     return trs
-#
-# ss = 'Лучший курс по Python!'
-# print(translater(ss))
+def translater(s, sep='-'):
+    s = s.lower()
+    trs = (''.join([t[i] if i in t else i for i in s])).replace(' ', sep)
+    return trs
+
+
+ss = 'Лучший курс по Python!'
+print(translater(ss))
+
+
 # %% 7.5.5
-# def get_data_fig(*args, **kwargs):
-#     if kwargs != {}:
-#         return sum(args), tuple(kwargs.get(k)
-#                              for k in ["type", "color", "closed", "width"]
-#                              if kwargs.get(k) != None)
-#     else:
-#         return sum(args)
+def get_data_fig(*args, **kwargs):
+    if kwargs != {}:
+        return sum(args), tuple(kwargs.get(k)
+                                for k in ["type", "color", "closed", "width"]
+                                if kwargs.get(k) != None)
+    else:
+        return sum(args)
+
 
 # %% 7.5.5b
 def get_data_fig(*args, **kwargs):
@@ -561,3 +566,37 @@ for i in range(len(lst) - 1):
             lst[j], lst[j + 1] = lst[j + 1], lst[j]
 
 print(*lst)
+
+# %% 9.2.3 Генератор паролей
+import random
+from string import ascii_lowercase, ascii_uppercase
+
+chars = ascii_lowercase + ascii_uppercase + "0123456789!?@#$*"
+
+
+def get_pass(n: int, chr: str):
+    for i in range(n):
+        yield chr[random.randint(0, len(chr) - 1)]
+
+
+N = int(input())
+for _ in range(10):
+    print(*get_pass(N, chars), sep='')
+
+# %% 9.2.4 Генератор имейлов
+import random
+from string import ascii_lowercase, ascii_uppercase
+
+random.seed(1)
+chars = ascii_lowercase + ascii_uppercase
+
+
+def get_random_letter(n: int, chr: str):
+    for i in range(n):
+        yield chr[random.randint(0, len(chr) - 1)]
+
+
+N = int(input())
+for _ in range(5):
+    mail_name = ''.join([*get_random_letter(N, chars)])
+    print(f'{mail_name}@mail.ru', sep='')
