@@ -600,3 +600,72 @@ N = int(input())
 for _ in range(5):
     mail_name = ''.join([*get_random_letter(N, chars)])
     print(f'{mail_name}@mail.ru', sep='')
+
+# %% 3.7.3 программирование на python
+rw = {'champions', 'we', 'are', 'Stepik'}
+lst = ['We are the champignons', 'We Are The Champions', 'Stepic']
+rw = {w.lower() for w in rw}
+lst_2 = [row.lower() for row in lst]
+S = set()
+for row in lst_2:
+    mistakes = set(row.split()).difference(rw)
+    [S.add(_) for _ in mistakes]
+print(*S)
+
+# %% 3.7.4 программирование на python
+commands = ['север 10', 'запад 20', 'юг 30', 'восток 40']
+x, y = 0, 0
+for i in commands:
+    if i.split()[0] == 'север':
+        y += int(i.split()[1])
+    elif i.split()[0] == 'юг':
+        y -= int(i.split()[1])
+    elif i.split()[0] == 'восток':
+        x += int(i.split()[1])
+    elif i.split()[0] == 'запад':
+        x -= int(i.split()[1])
+    else:
+        print('Wrong destination!!!')
+print(x, y)
+
+# %% 3.7.5 программирование на python
+with open('dataset_3380_5.txt') as f:
+    lst = [line.rstrip('\n').split('\t') for line in f]
+clss = range(1, 12)
+
+sw = {str(key): [] for key in clss}
+
+for row in lst:
+    sw.get(row[0]).append(float(row[2]))
+for k in sw:
+    if sum(sw[k]) != 0:
+        sw[k] = sum(sw[k]) / len(sw[k])
+    else:
+        sw[k] = '-'
+with open('results.txt', 'w') as f:
+    for k in sw:
+        f.write(f'{k} {sw[k]}\n')
+
+# %% Добрый Python
+s = ['1 0 0 0 0',
+     '0 0 1 0 0',
+     '0 0 0 0 0',
+     '0 1 0 1 0',
+     '0 0 0 0 0']
+
+lst = []
+for row in s:
+    lst.append(list(map(int, row.split())))
+lst_in_c = lst
+
+
+def verify(lst: list):
+    def is_isolate(i, j, lst):
+        return sum([lst[i][j], lst[i][j + 1], lst[i + 1][j], lst[i + 1][j + 1]]) <= 1
+
+    a = []
+    for i in range(len(lst) - 1):
+        for j in range(len(lst) - 1):
+            if lst[i][j] == 1:
+                a.append(is_isolate(i, j, lst))
+    return all(a)
