@@ -691,3 +691,134 @@ with open('res.txt', 'w') as output_file:
     for m in means:
         output_file.write(f'{m}\n')
     output_file.write(f'{mean_subj1} {mean_subj2} {mean_subj3}')
+
+
+# %% 7.8.7 Анонимные лямбда функции
+
+def filter_lst(it, key=None):
+    if key is None:
+        return tuple(it)
+
+    res = ()
+    for x in it:
+        if key(x):
+            res += (x,)
+
+    return res
+
+
+s = '5 4 -3 4 5 -24 -6 9 0'
+
+print(*filter_lst(s.split(), key=None))
+print(*filter_lst(s.split(), key=lambda x: x if int(x) < 0 else ''))
+print(*filter_lst(s.split(), key=lambda x: x if int(x) >= 0 or int(x) == 0 else ''))
+print(*filter_lst(s.split(), key=lambda x: x if int(x) in range(3, 6) else 0))
+
+# %% 7.7.5 Рекурсивные функции
+import time
+
+N = 1000
+
+
+def get_list_fibonacci(n: int, f=[1, 1]):
+    fib = f
+    for i in range(2, n):
+        fib.append(fib[i - 1] + fib[i - 2])
+    return (fib)
+
+
+t1 = time.time()
+res = get_list_fibonacci(N, f=[1, 1])
+t2 = time.time()
+elapsed = t2 - t1
+print('{:.10f}'.format(elapsed))
+
+
+def fib_rec1(n, f=[1, 1]):
+    if n > 2:
+        f.append(f[-1] + f[-2])
+        fib_rec1(n - 1, f)
+    return f
+
+
+t1_1 = time.time()
+res1 = fib_rec1(N, f=[1, 1])
+t2_2 = time.time()
+elapsed1 = t2_2 - t1_1
+print('{:.10f}'.format(elapsed1))
+
+# %% 7.7.6 Рекурсивные функции
+import time
+
+N = 6
+
+
+def fact_rec(n):
+    if n < 1:
+        return 1
+    else:
+        return n * fact_rec(n - 1)
+
+
+print(fact_rec(N))
+
+# %% 7.7.6 Рекурсивные функции
+
+d = [1, 2, [True, False], ["Москва", "Уфа", [100, 101], ['True', [-2, -1]]], 7.89]
+
+
+def get_line_list(d: list, a=[]):
+    for i in d:
+        if type(i) != list:
+            a.append(i)
+        else:
+            get_line_list(i, a)
+    return a
+
+
+print(get_line_list(d))
+# %%
+
+from functools import reduce
+
+
+def cumul_mult(first, second):
+    return first * second
+
+
+def almost_double_factorial(n):
+    n = int(n)
+    if n == 0:
+        return 1
+    else:
+        numbers = list(filter(lambda x: x % 2 != 0, range(0, n + 1)))
+        return list(reduce(cumul_mult, numbers))
+
+
+almost_double_factorial(10)
+
+# %%
+from itertools import permutations
+
+str = list('мама')
+m = []
+for val in [''.join(p) for p in permutations(str)]:
+    if val not in m:
+        m.append(val)
+print(*sorted(m), sep='\n')
+
+
+# %% 4.1.11
+
+def cumsum_and_erase(lst: list, erase=1):
+    return [sum(lst[0: i + 1]) for i in range(len(lst)) if sum(lst[0: i + 1]) != erase]
+
+
+A = [5, 1, 4, 5, 14]
+print(cumsum_and_erase(A, erase=10))
+
+
+# %%
+def process(sentences):
+    result = [''.join([' '.join(list(filter(lambda s: s.isalpha(), sent.split())))]) for sent in sentences]
+    return result
